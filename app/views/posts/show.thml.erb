@@ -1,0 +1,5 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+
+<%= link_to 'Edit', edit_directory_post_path(@directory, @post) %>
+<%= link_to 'Back', directory_path(@directory) %>
