@@ -1,4 +1,10 @@
 class PostsController < ApplicationController
+
+    def index
+        @directory = Directory.find(params[:directory_id])
+        @posts = Post.includes(:directory).all
+    end
+
     def new
         @directory = Directory.find(params[:directory_id])
         @post = @directory.posts.build

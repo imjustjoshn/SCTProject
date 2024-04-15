@@ -1,5 +1,6 @@
 class DirectoriesController < ApplicationController
-    before_action :authenticate_admin!, except: [:index, :show]
+    before_action :authenticate_user!
+    before_action :set_directory, only: [:show]
 
     def index
       @directories = Directory.all
@@ -39,12 +40,15 @@ class DirectoriesController < ApplicationController
 
     def show
       @directory = Directory.find(params[:id])
-      @post = @directory.posts.first
-      if @post
-        redirect_to directory_post_path(@directory, @post)
+      if current_user.can_access_directory?(@directory)
+        @post = @directory.posts.first
+        if @post
+          redirect_to directory_post_path(@directory, @post)
+        else
+          redirect_to directories_path, notice: 'No posts found for this directory.'
+        end
       else
-        redirect_to directories_path, notice: 'No posts found for this directory.'
-      end
+        render 'access_denied'
     end
   
     private

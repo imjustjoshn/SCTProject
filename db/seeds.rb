@@ -57,3 +57,10 @@ dummy4.posts.create(
     title:'Do\'s and Dont\'s',
     content: 'This is filler data for how to operate in the company'
 )
+
+admin = User.create(
+    email: 'admin@email.com',
+    password: 'password1',
+    password_confirmation: 'password1',
+    admin: true
+)
