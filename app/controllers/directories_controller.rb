@@ -40,7 +40,10 @@ class DirectoriesController < ApplicationController
 
     def show
       @directory = Directory.find(params[:id])
-      if current_user.can_access_directory?(@directory)
+
+      access_granted = current_user.can_access_directory?(@directory)
+
+      if access_granted
         @post = @directory.posts.first
         if @post
           redirect_to directory_post_path(@directory, @post)

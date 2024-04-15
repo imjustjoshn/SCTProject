@@ -4,16 +4,17 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :directories do
-    get 'access_denied', on: :member
     resources :posts
   end
 
-  resources :access_requests, only: [:create]
+  resources :access_requests, only: [:new, :create]
 
   namespace :admin do
-    get 'access_requests/index'
-    get 'access_requests/update'
-    get 'access_requests/destroy'
-    resources :access_requests, only: [:index, :update, :destroy]
+    resources :access_requests, only: [:index, :update, :destroy] do
+      member do
+        patch :approve
+        patch :deny
+      end
+    end
   end
 end

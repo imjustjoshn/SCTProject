@@ -1,8 +1,14 @@
 class PostsController < ApplicationController
+    before_action :set_directory
+    before_action :set_posts, only: [:index]
 
     def index
-        @directory = Directory.find(params[:directory_id])
-        @posts = Post.includes(:directory).all
+        if current_user.can_access_directory?(@directory)
+            @directory = Directory.find(params[:directory_id])
+            @posts = Post.includes(:directory).all
+        else
+            render 'access_denied'
+        end
     end
 
     def new
@@ -51,5 +57,13 @@ class PostsController < ApplicationController
 
     def post_params
         params.require(:post).permit(:title, :content)
+    end
+
+    def set_directory
+        @directory = Directory.find(params[:directory_id])
+    end
+
+    def set_posts
+        @posts = @directory.posts
     end
 end

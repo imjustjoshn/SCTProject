@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_15_174832) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_15_224350) do
   create_table "access_requests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "directory_id", null: false
+    t.index ["directory_id"], name: "index_access_requests_on_directory_id"
+    t.index ["user_id"], name: "index_access_requests_on_user_id"
   end
 
   create_table "directories", force: :cascade do |t|
@@ -44,5 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_15_174832) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "access_requests", "directories"
+  add_foreign_key "access_requests", "users"
   add_foreign_key "posts", "directories"
 end

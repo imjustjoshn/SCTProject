@@ -18,8 +18,15 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <% if user_signed_in? %>
+            <span class="navbar-text">
+              Hello, <%= current_user.email %>
+            </span>
+          <% end %>
+          
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="/">Home</a>
@@ -35,6 +42,7 @@
               <%= link_to 'Sign Out', destroy_user_session_path, data: { turbo_method: :delete }, class: 'nav-link' if user_signed_in? %>
             </li>
           </ul>
+
         </div>
       </div>
     </nav>

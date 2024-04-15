@@ -14,8 +14,8 @@
                 <td><%= access_request.user.email %></td>
                 <td><%= access_request.status %></td>
                 <td>
-                    <%= link_to 'Approve', admin_access_request_path(access_request), method: :patch %>
-                    <%= link_to 'Deny', admin_access_request_path(access_request), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%= button_to 'Approve', method: :patch %>
+                    <%= button_to 'Deny', method: :patch, data: { confirm: 'Are you sure?' } %>
                 </td>
             </tr>
         <% end %>

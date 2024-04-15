@@ -1,0 +1,8 @@
+<h1>New Access Request</h1>
+
+<%= form_with(model: @access_request, url: access_requests_path, method: :post) do |form| %>
+  <%= form.label :directory_id, 'Directory ID (1, 2, 3...)' %>
+  <%= form.text_field :directory_id %>
+
+  <%= form.submit 'Submit' %>
+<% end %>
